@@ -76,6 +76,7 @@
    * @property (string) playerAnswer ответ игрока.
    * @property (number) finalPrize Сумма выигрыша.
    * @property (number) safetyNet Достигнутая несгораемая сумма.
+   * @property (Array) safetyNetRound Массив раундов с несгораемой суммой.
    */
   const settings = {
     continueGame: true,
@@ -124,13 +125,9 @@
      * @returns {*} Возвращает ответ игрока.
      */
     askQuestion() {
-      // const possibleAnswers = ['0', '1', '2', '3', '4'];
       const possibleAnswers = ['0', 'a', 'b', 'c', 'd'];
 
       let givenAnswer = prompt(
-        // 'Вопрос ' + (this.settings.roundNumber + 1) + ', на кону ' + this.prizes[this.settings.roundNumber] +
-        // ' рублей: ' + '\n' +
-        // this.round[this.settings.roundNumber].question +
         this.displayQuestion() +
         this.displayAnswers(this.round[this.settings.roundNumber].answers) +
         `Ваша несгораемая сумма равна ${this.settings.safetyNet} рублей` + '\n' +
@@ -139,7 +136,7 @@
 
       if (!possibleAnswers.includes(givenAnswer)) {
         // alert('Введите цифру от 0 до 4');
-        alert('Введите один из возможных ответов: 0, A, B, C, D');
+        alert('Введите один из возможных ответов: 0, a, b, c, d');
 
         this.askQuestion();
       }
@@ -150,11 +147,6 @@
 
       givenAnswer = givenAnswer.charCodeAt(0) - 96;
 
-      // alert(`Вопрос ${this.settings.roundNumber}: ${this.round[this.settings.roundNumber].question}\n \
-      // ${this.displayAnswers(this.round[this.settings.roundNumber].answers)}`);
-
-      // console.log(givenAnswer);
-      // console.log(this.round[this.settings.roundNumber].answers[givenAnswer - 1]);
       return this.settings.playerAnswer = this.round[this.settings.roundNumber].answers[givenAnswer - 1];
 
     },
