@@ -107,6 +107,9 @@
       this.greeting();
       while (this.settings.continueGame) {
         this.askQuestion();
+        if (!this.settings.continueGame) {
+          return;
+        }
         this.checkAnswer();
       }
       this.restartGame();
@@ -132,7 +135,14 @@
         this.displayAnswers(this.round[this.settings.roundNumber].answers) +
         `Ваша несгораемая сумма равна ${this.settings.safetyNet} рублей` + '\n' +
         `Если хотите закончить игру и унести с собой ${this.settings.finalPrize} рублей, введите 0`
-      ).toLowerCase();
+      );
+
+      if (givenAnswer === null) {
+        this.settings.continueGame = false;
+        return;
+      };
+
+      givenAnswer = givenAnswer.toLowerCase();
 
       if (!possibleAnswers.includes(givenAnswer)) {
         // alert('Введите цифру от 0 до 4');
