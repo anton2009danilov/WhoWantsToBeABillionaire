@@ -133,6 +133,8 @@
         this.askQuestion()
       );
 
+      givenAnswer = this.translateAnswer(givenAnswer);
+
       if (givenAnswer === null) {
         this.settings.continueGame = false;
         return;
@@ -157,7 +159,24 @@
     },
 
     /**
-     * Выводит на экран вопросы и варианты ответов.
+     * Переводит ответ в виде русского символа в английский символ
+     */
+    translateAnswer(answer) {
+      if (answer === 'ф') {
+        return answer = 'a';
+      } else if (answer === 'и') {
+        return answer = 'b';
+      } else if (answer === 'с') {
+        return answer = 'c';
+      } else if (answer === 'в') {
+        return answer = 'd';
+      } else {
+        return answer;
+      }
+    },
+
+    /**
+     * Формирует текст вопроса и вариантов ответа для вывода на экран
      * @returns {*}
      */
     askQuestion() {
