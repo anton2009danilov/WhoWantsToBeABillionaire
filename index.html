@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Кто хочет стать миллионером?</title>
+    <meta charset="UTF-8">
+    <title>Кто хочет стать миллионером?</title>
 </head>
 <body>
 <script>
@@ -106,7 +106,7 @@
       this.finalRoundNumber = this.round.length - 1;
       this.greeting();
       while (this.settings.continueGame) {
-        this.askQuestion();
+        this.getAnswer();
         if (!this.settings.continueGame) {
           return;
         }
@@ -123,24 +123,20 @@
     },
 
     /**
-     * Выводит на экран вопросы и варианты ответов.
-     * Просит игрока ввести ответ.
-     * @returns {*} Возвращает ответ игрока.
+     * Получает и отдает ответ от игрока.
      */
-    askQuestion() {
+    getAnswer() {
+
       const possibleAnswers = ['0', 'a', 'b', 'c', 'd'];
 
       let givenAnswer = prompt(
-        this.displayQuestion() +
-        this.displayAnswers(this.round[this.settings.roundNumber].answers) +
-        `Ваша несгораемая сумма равна ${this.settings.safetyNet} рублей` + '\n' +
-        `Если хотите закончить игру и унести с собой ${this.settings.finalPrize} рублей, введите 0`
+        this.askQuestion()
       );
 
       if (givenAnswer === null) {
         this.settings.continueGame = false;
         return;
-      };
+      }
 
       givenAnswer = givenAnswer.toLowerCase();
 
@@ -148,7 +144,7 @@
         // alert('Введите цифру от 0 до 4');
         alert('Введите один из возможных ответов: 0, a, b, c, d');
 
-        return this.askQuestion();
+        return this.getAnswer();
       }
 
       if (+givenAnswer === 0) {
@@ -158,7 +154,19 @@
       givenAnswer = givenAnswer.charCodeAt(0) - 96;
 
       return this.settings.playerAnswer = this.round[this.settings.roundNumber].answers[givenAnswer - 1];
+    },
 
+    /**
+     * Выводит на экран вопросы и варианты ответов.
+     * @returns {*}
+     */
+    askQuestion() {
+      return (
+        this.displayQuestion() +
+        this.displayAnswers(this.round[this.settings.roundNumber].answers) +
+        `Ваша несгораемая сумма равна ${this.settings.safetyNet} рублей` + '\n' +
+        `Если хотите закончить игру и унести с собой ${this.settings.finalPrize} рублей, введите 0`
+      );
     },
 
     /**
